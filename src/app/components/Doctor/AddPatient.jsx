@@ -23,7 +23,7 @@ export const AddPatient = () => {
 
         <div className={`px-5 pt-5 flex items-center justify-around flex-wrap`}>
 
-            <PatientForm validate={setValidateForm} save={saveAll} isSaved={setIsPatientInfoSaved} />
+            <PatientForm data={null} validate={setValidateForm} save={saveAll} isSaved={setIsPatientInfoSaved} />
 
             <Measurement validate={setValidateMeasurement} save={saveAll} isSaved={setIsMeasurementSaved} />
         </div>

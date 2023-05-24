@@ -5,17 +5,32 @@ import {Textarea} from "../Share/Textarea.jsx";
 import moment from "moment";
 
 
-export const PatientForm = ({validate, save, isSaved}) => {
+export const PatientForm = ({data, validate, save, isSaved}) => {
 
-    const [prenom, setPrenom] = useState("");
-    const [nom, setNom] = useState("");
-    const [nationalite, setNationalite] = useState("");
-    const [cni, setCni] = useState("");
-    const [age, setAge] = useState();
-    const [telephone, setTelephone] = useState("");
-    const [sexe, setSexe] = useState("M");
-    const [adresse, setAdresse] = useState("");
-    const [antecedents, setAntecedents] = useState("");
+    const [prenom, setPrenom] = useState(data ? data.nom : "");
+    const [nom, setNom] = useState(data ? data.prenom : "");
+    const [nationalite, setNationalite] = useState(data ? data.nationalite : "");
+    const [cni, setCni] = useState(data ? data.cni : "");
+    const [age, setAge] = useState(data ? data.age : 0);
+    const [telephone, setTelephone] = useState(data ? data.telephone : "");
+    const [sexe, setSexe] = useState(data ? data.sexe : "M");
+    const [adresse, setAdresse] = useState(data ? data.adresse : "");
+    const [antecedents, setAntecedents] = useState(data ? data.antecedents : "");
+
+    useEffect(() => {
+
+        if (data) {
+            setPrenom(data ? data.nom : "");
+            setNom(data ? data.prenom : "");
+            setNationalite(data ? data.nationalite : "");
+            setCni(data ? data.cni : "");
+            setAge(data ? data.age : 0);
+            setTelephone(data ? data.telephone : "");
+            setSexe(data ? data.sexe : "M");
+            setAdresse(data ? data.adresse : "");
+            setAntecedents(data ? data.antecedents : "");
+        }
+    }, [data])
 
     const {patients, setPatients} = useAppStateContext();
 
@@ -88,7 +103,7 @@ export const PatientForm = ({validate, save, isSaved}) => {
 
             </div>
 
-            <Textarea row={4} label={"Antécédents"} setValue={setAntecedents} value={antecedents} />
+            <Textarea disabled={false} className={""} row={4} label={"Antécédents"} setValue={setAntecedents} value={antecedents} />
         </div>
 
     </>)
