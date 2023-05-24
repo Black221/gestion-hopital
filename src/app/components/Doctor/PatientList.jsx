@@ -1,31 +1,50 @@
 import {Breadcrumb} from "../Share/Breadcrumb.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Pagination} from "../Share/Pagination.jsx";
 import {Table} from "../Share/Table.jsx";
 import {SearchBar} from "../Share/SearchBar.jsx";
-import {PATIENT} from "../../dummy.js";
 import {useAppStateContext} from "../../context/AppContext.jsx";
 
 
 export const PatientList = () => {
 
-    const [isloading, setIsloading] = useState(false);
-
     const {patients} = useAppStateContext();
+
+    const [isloading, setIsloading] = useState(false);
+    const [search, setSearch] = useState("");
+    const [data, setData] = useState(patients);
+
+
+    useEffect(() => {
+        if (search !== "")
+            setData(patients.filter(({nom, prenom, nationalite, age, sexe, telephone, adresse}) => (
+                nom.toLowerCase().search(search) >= 0
+                || prenom.toLowerCase().search(search) >= 0
+                || nationalite.toLowerCase().search(search) >= 0
+                || age.toString().toLowerCase().search(search) >= 0
+                || sexe.toLowerCase().search(search) >= 0
+                || telephone.toLowerCase().search(search) >= 0
+                || adresse.toLowerCase().search(search) >= 0
+            )));
+        else
+            setData(patients);
+
+    }, [search, patients])
+
 
     return (<>
         <Breadcrumb link={["medecin", "lister-patient"]} />
 
-        <SearchBar />
+        <SearchBar getSearch={setSearch} />
 
         <div className={"space-y-20"}>
             <div className={"flex-1"}>
                 <Table column={["id", "nom", "prenom", "age", "sexe", "adresse", "nationalite", "telephone"]}
                        action={{ref : ["modifier-dossier", "voir-dossier"], position: "medecin"}}
-                       data={patients}/>
+                       data={data}/>
             </div>
 
-            <Pagination page={0} length={11} dataCount={0} />
+            <Pagination page={0} length={data.length} dataCount={data.length} />
         </div>
 
 

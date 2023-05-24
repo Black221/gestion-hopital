@@ -1,10 +1,13 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 
-export const SearchBar = ({label}) => {
+export const SearchBar = ({label, getSearch}) => {
 
     const [search, setSearch] = useState("");
 
+    useEffect(() => {
+        getSearch(search)
+    }, [search])
 
     return (<>
         <div className="p-2 flex items-center justify-between pb-4 bg-white ">

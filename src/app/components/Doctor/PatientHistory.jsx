@@ -4,10 +4,10 @@ import {PatientInfo} from "../Share/PatientInfo.jsx";
 import {DiagnosticForm} from "../Share/DiagnosForm.jsx";
 import {Calendar} from "../Share/Calendar.jsx";
 import {useEffect, useState} from "react";
-import {PATIENT} from "../../dummy.js";
 import {FloatingButton} from "../Share/FloatingButton.jsx";
 import moment from "moment";
 import {Heading} from "../Share/Heading.jsx";
+import {useAppStateContext} from "../../context/AppContext.jsx";
 
 
 export const PatientHistory = () => {
@@ -18,11 +18,14 @@ export const PatientHistory = () => {
     const [patient, setPatient] = useState(null);
     const [mesure, setMesure] = useState(null);
 
+    const {patients} = useAppStateContext();
+
     const today = moment().format('D/M/YYYY');
 
     useEffect(() => {
+        console.log(patients[parseInt(id)-1])
         if (id)
-            setPatient(PATIENT[parseInt(id)-1]);
+            setPatient(patients[parseInt(id)-1]);
     }, [id])
 
     const getChoice = (choice) => {
@@ -57,7 +60,7 @@ export const PatientHistory = () => {
 
                 <div>
                     <h2 className={"font-bold text-xl text-center"}>Dernières visites</h2>
-                    {patient && <Calendar getDate={getChoice} dateToColor={patient.mesures.map(({date}) => date)}/>}
+                    <Calendar getDate={getChoice} dateToColor={patient && patient.mesures ? patient.mesures.map(({date}) => date) : []}/>
                 </div>
 
             </div>

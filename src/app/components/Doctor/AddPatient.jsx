@@ -3,10 +3,8 @@ import {PatientForm} from "./PatientForm.jsx";
 import {Measurement} from "./Measurment.jsx";
 import {FloatingButton} from "../Share/FloatingButton.jsx";
 import {useState} from "react";
-import {CountDown} from "../Share/CountDown.jsx";
 import {NavLink} from "react-router-dom";
 import {useAppStateContext} from "../../context/AppContext.jsx";
-import {Textarea} from "../Share/Textarea.jsx";
 
 export const AddPatient = () => {
 
@@ -14,7 +12,6 @@ export const AddPatient = () => {
     const [validateMeasurement, setValidateMeasurement] = useState(false);
     const [saveAll, setSaveAll] = useState(false);
 
-    const [validateAll, setValidateAll] = useState(false);
     const [isPatientInfoSaved, setIsPatientInfoSaved] = useState(false);
     const [isMeasurementSaved, setIsMeasurementSaved] = useState(false);
 
@@ -37,7 +34,7 @@ export const AddPatient = () => {
         {saveAll && <div className={`absolute left-0 top-0 right-0 bottom-0 bg-gray-600 bg-opacity-20 flex items-center justify-center`}>
 
             {(isPatientInfoSaved && isMeasurementSaved) ? (
-                <NavLink className={"text-xl text-blue-500 p-6 bh-white rounded-lg"} to={"/medecin/voir-dossier/"+patients.length}>Voir profil</NavLink>
+                <NavLink className={"text-xl text-blue-500 p-6 bg-white rounded-lg"} to={"/medecin/voir-dossier/"+patients.length}>Voir profil</NavLink>
             ) : <svg aria-hidden="true" role="status"
                      className="inline w-1O h-10 mr-3 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101"
                      fill="none" xmlns="http://www.w3.org/2000/svg">

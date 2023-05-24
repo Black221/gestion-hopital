@@ -2,6 +2,7 @@ import {Input} from "../Share/Input.jsx";
 import {useEffect, useState} from "react";
 import {useAppStateContext} from "../../context/AppContext.jsx";
 import {Textarea} from "../Share/Textarea.jsx";
+import moment from "moment";
 
 
 export const PatientForm = ({validate, save, isSaved}) => {
@@ -24,11 +25,13 @@ export const PatientForm = ({validate, save, isSaved}) => {
                 id: patients.length + 1,
                 prenom, nom, nationalite, age, telephone, sexe, adresse, cni,
                 antecedents,
-                mesures : {
+                mesures : [{
+                    date: moment().format("D/M/YYYY"),
                     omronConnect: "test data omronConnect",
                     viHealth: "test data viHealth",
-                    veSync: "test data veSync"
-                }
+                    veSync: "test data veSync",
+                    ordonnance: "",
+                }]
             }]);
 
         isSaved(true)
