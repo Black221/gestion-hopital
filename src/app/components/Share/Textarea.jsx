@@ -1,6 +1,6 @@
 
 
-export const Textarea = ({label, value, setValue, className, row}) => {
+export const Textarea = ({label, value, setValue, className, row, disabled}) => {
 
     return (<>
         <div className={className}>
@@ -9,6 +9,7 @@ export const Textarea = ({label, value, setValue, className, row}) => {
             </label>
             <div className="mt-2">
                 <textarea
+                    disabled={disabled}
                     id="about"
                     value={value}
                     rows={row}

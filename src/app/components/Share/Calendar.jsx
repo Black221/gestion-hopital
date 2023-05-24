@@ -1,15 +1,15 @@
 import moment from 'moment';
 import {useEffect, useState} from "react";
 
-export const Calendar = ({getDate, selectedDays}) => {
+export const Calendar = ({getDate, dateToColor}) => {
 
-    const [dateObject, setDateObject] = useState(moment());
+    const [selectedDate, setSelectedDate] = useState(null);
     const [rows, setRows] = useState([]);
 
-    const today = moment().date();
-    const [dayToRender, setDayToRender] = useState(null);
-    const [monthToRender, setMonthToRender] = useState(moment().month());
-    const [yearToRender, setYearToRender] = useState(moment().year());
+    const today = moment();
+    const [currentDate, setCurrentDate] = useState(today);
+    const [monthToRender, setMonthToRender] = useState(today.month());
+    const [yearToRender, setYearToRender] = useState(today.year());
 
     const weekDayShortName = moment.weekdaysShort().map(day => {
         return (
@@ -22,7 +22,7 @@ export const Calendar = ({getDate, selectedDays}) => {
     });
 
     const firstDayOfMonth = () => {
-        return moment(dateObject)
+        return moment(currentDate)
             .startOf("month")
             .format("d");
     };
@@ -31,7 +31,7 @@ export const Calendar = ({getDate, selectedDays}) => {
         let blanks = [];
         for (let i = 0; i < firstDayOfMonth(); i++) {
             blanks.push(
-                <td className="pt-6">
+                <td key={i} className="pt-6">
                     <div className="px-2 py-2 cursor-pointer flex w-full justify-center"></div>
                 </td>
             );
@@ -41,13 +41,23 @@ export const Calendar = ({getDate, selectedDays}) => {
 
     const getDayInMonth = () => {
         let daysInMonth = [];
-        for (let d = 1; d <= dateObject.daysInMonth(); d++) {
-            console.log(d, today)
+        for (let d = 1; d <= currentDate.daysInMonth(); d++) {
+
             daysInMonth.push(
-                <td key={d} className="pt-2">
-                    <div className={`px-2 py-2 cursor-pointer flex w-full justify-center rounded-full ${ d=== today ? "bg-blue-400 text-white" : "text-gray-500"} `}>
+                <td key={(d + 1) * 100} className="pt-2 text-gray-500">
+                    <button onClick={() => {
+
+                        getDate(`${d}/${(monthToRender + 1)}/${yearToRender}`);
+                        setSelectedDate(`${d}/${monthToRender + 1}/${yearToRender}`);
+
+                    }} className={`
+                        px-2 py-2 cursor-pointer flex w-full justify-center rounded-full 
+                         ${selectedDate && selectedDate === `${d}/${(monthToRender + 1)}/${yearToRender}` ? "bg-cyan-500 text-white" 
+                        : dateToColor && dateToColor.filter((date) => (date === `${d}/${(monthToRender + 1)}/${yearToRender}`)).length && "bg-gray-400 text-white"} 
+                         ${`${d}/${(monthToRender + 1)}/${yearToRender}` === today.format("D/M/y") ? "bg-blue-400 text-white" : ""} 
+                     `}>
                         <p className={`text-base   font-medium`}>{d}</p>
-                    </div>
+                    </button>
                 </td>
             );
         }
@@ -76,13 +86,19 @@ export const Calendar = ({getDate, selectedDays}) => {
 
     useEffect(() => {
         setRows(getRows())
-    }, [])
+    }, [selectedDate, currentDate])
 
+    useEffect(() => {
+
+        setCurrentDate(moment(`${(monthToRender + 1)} 1 ${yearToRender}`, "M D YYYY"))
+
+    },[monthToRender, yearToRender])
 
     return (<>
         <div className=" p-6  bg-white rounded-t w-96">
             <div className={"text-xl font-semibold flex items-center justify-center"}>
                 <button aria-label="calendar backward"
+                        onClick={() => setYearToRender((y) => y - 1)}
                         className="focus:text-gray-400 mr-3 hover:text-gray-400 text-gray-800 ">
                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left"
                          width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
@@ -93,6 +109,7 @@ export const Calendar = ({getDate, selectedDays}) => {
                 </button>
                 {yearToRender}
                 <button aria-label="calendar forward"
+                        onClick={() => setYearToRender((y) => (y + 1))}
                         className="focus:text-gray-400 hover:text-gray-400 ml-3 text-gray-800 ">
                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler  icon-tabler-chevron-right"
                          width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
@@ -106,6 +123,9 @@ export const Calendar = ({getDate, selectedDays}) => {
                 <span tabIndex="0" className="focus:outline-none  text-base font-bold  text-gray-800">{moment.monthsShort(monthToRender)}</span>
                 <div className="flex items-center">
                     <button aria-label="calendar backward"
+                            onClick={() => setMonthToRender((m) => {
+                                return m > 0 ? m - 1 : 11
+                            })}
                             className="focus:text-gray-400 hover:text-gray-400 text-gray-800 ">
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left"
                              width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
@@ -115,6 +135,9 @@ export const Calendar = ({getDate, selectedDays}) => {
                         </svg>
                     </button>
                     <button aria-label="calendar forward"
+                            onClick={() => setMonthToRender((m) => {
+                                return m < 11 ? m + 1 : 0
+                            })}
                             className="focus:text-gray-400 hover:text-gray-400 ml-3 text-gray-800 ">
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler  icon-tabler-chevron-right"
                              width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
@@ -135,7 +158,7 @@ export const Calendar = ({getDate, selectedDays}) => {
                     </thead>
                     <tbody>
                         {rows.map((d, i) => {
-                            return <tr key={i}>{d}</tr>;
+                            return (<tr key={(i + 1) * 10}>{d}</tr>);
                         })}
                     </tbody>
                 </table>

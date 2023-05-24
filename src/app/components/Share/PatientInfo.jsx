@@ -4,7 +4,6 @@ import {Spinner} from "./Spinner.jsx";
 
 export const PatientInfo = ({data}) => {
 
-    console.log(data)
     return (<>
 
         <div className={"px-4 w-5/12  border rounded-xl"}>

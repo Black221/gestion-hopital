@@ -6,6 +6,7 @@ import {useState} from "react";
 import {CountDown} from "../Share/CountDown.jsx";
 import {NavLink} from "react-router-dom";
 import {useAppStateContext} from "../../context/AppContext.jsx";
+import {Textarea} from "../Share/Textarea.jsx";
 
 export const AddPatient = () => {
 
@@ -28,10 +29,10 @@ export const AddPatient = () => {
             <PatientForm validate={setValidateForm} save={saveAll} isSaved={setIsPatientInfoSaved} />
 
             <Measurement validate={setValidateMeasurement} save={saveAll} isSaved={setIsMeasurementSaved} />
-
-            <FloatingButton title={"Confirmer"} disabled={!(validateForm && validateMeasurement)} onClick={setSaveAll} />
         </div>
 
+
+        <FloatingButton title={"Confirmer"} disabled={!(validateForm && validateMeasurement)} onClick={setSaveAll} />
 
         {saveAll && <div className={`absolute left-0 top-0 right-0 bottom-0 bg-gray-600 bg-opacity-20 flex items-center justify-center`}>
 

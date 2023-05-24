@@ -22,14 +22,14 @@ export const Breadcrumb = ({link, direct}) => {
                 if (index === link.length - 1)
                     className = "capitalize text-blue-500  underline text-xl";
 
-                return (<>
-                    <div key={index} className={"flex items-center"}>
-                        <Arrow/>
-                        <NavLink to={`${!direct ? a.current : l}`} className={className}>
+                return (
+                    <div key={(index + 1) * 10} className={"flex items-center"}>
+                        <Arrow  />
+                        <NavLink  to={`${!direct ? a.current : l}`} className={className}>
                             {l}
                         </NavLink>
                     </div>
-                </>)
+                )
             })}
 
         </div>
@@ -37,10 +37,10 @@ export const Breadcrumb = ({link, direct}) => {
 }
 
 
-const Arrow = () => {
+const Arrow = ({key}) => {
 
     return (<>
-        <span className="mx-3 text-gray-800  rtl:-scale-x-100">
+        <span  className="mx-3 text-gray-800  rtl:-scale-x-100">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd"
                       d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"

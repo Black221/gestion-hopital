@@ -2,21 +2,25 @@ import {Breadcrumb} from "../Share/Breadcrumb.jsx";
 import {useParams} from "react-router-dom";
 import {PatientInfo} from "../Share/PatientInfo.jsx";
 import {DiagnosticForm} from "../Share/DiagnosForm.jsx";
-import {LastVisit} from "../Share/LastVisit.jsx";
 import {Calendar} from "../Share/Calendar.jsx";
 import {useEffect, useState} from "react";
 import {PATIENT} from "../../dummy.js";
+import {FloatingButton} from "../Share/FloatingButton.jsx";
+import moment from "moment";
+import {Heading} from "../Share/Heading.jsx";
 
 
 export const PatientHistory = () => {
 
     const {id} = useParams();
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState(moment().format('D/M/YYYY'));
 
     const [patient, setPatient] = useState(null);
+    const [mesure, setMesure] = useState(null);
+
+    const today = moment().format('D/M/YYYY');
 
     useEffect(() => {
-        console.log(id)
         if (id)
             setPatient(PATIENT[parseInt(id)-1]);
     }, [id])
@@ -24,6 +28,23 @@ export const PatientHistory = () => {
     const getChoice = (choice) => {
         setDate(choice)
     }
+
+    const getMesure = () => {
+        let i = 0;
+        while (i < patient.mesures.length && patient.mesures[i].date !== date) i++;
+
+        if (i < patient.mesures.length  && patient.mesures[i].date === date)
+            return patient.mesures[i];
+        else
+            return null;
+    }
+
+    useEffect(() => {
+        if (patient && patient.mesures[0] && patient.mesures[0].date && date) {
+            setMesure(getMesure());
+            console.log(getMesure())
+        }
+    }, [patient, date])
 
     return (<>
         <Breadcrumb link={["medecin", "lister-dossier", "voir-dossier", id]} />
@@ -36,25 +57,21 @@ export const PatientHistory = () => {
 
                 <div>
                     <h2 className={"font-bold text-xl text-center"}>Dernières visites</h2>
-                    <Calendar getDate={getChoice} />
+                    {patient && <Calendar getDate={getChoice} dateToColor={patient.mesures.map(({date}) => date)}/>}
                 </div>
 
             </div>
 
-            {patient && <DiagnosticForm data={patient.mesures}/>}
+            {patient && patient.antecedents && <Heading title={"Antécédents"} text={patient.antecedents}/>}
+
+            {mesure ? <DiagnosticForm data={mesure}/> : <div className={"text-center"}>
+                Pas de mesure prise.
+            </div>}
 
         </div>
 
-       <div className={"text-end pb-8"}>
-           <button
-               onClick={() => {
-               }}
-               type="submit"
-               className="rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-           >
-               Sauvegarder
-           </button>
-       </div>
+        {(mesure === null || !mesure) && date === today && <FloatingButton title={"+"} onClick={() => {
+        }} rounded={true} position={"top"} color={"bg-blue-600"}/>}
 
     </>)
 }
