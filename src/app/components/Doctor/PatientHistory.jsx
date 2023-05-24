@@ -41,7 +41,7 @@ export const PatientHistory = () => {
 
             </div>
 
-            <DiagnosticForm data={patient.mesures} />
+            {patient && <DiagnosticForm data={patient.mesures}/>}
 
         </div>
 
