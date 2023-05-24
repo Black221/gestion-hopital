@@ -32,7 +32,6 @@ export const AddPatient = () => {
             <FloatingButton title={"Confirmer"} disabled={!(validateForm && validateMeasurement)} onClick={setSaveAll} />
         </div>
 
-        <CountDown count={4} />
 
         {saveAll && <div className={`absolute left-0 top-0 right-0 bottom-0 bg-gray-600 bg-opacity-20 flex items-center justify-center`}>
 

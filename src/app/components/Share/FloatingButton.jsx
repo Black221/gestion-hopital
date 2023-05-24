@@ -4,11 +4,10 @@ export const FloatingButton = ({onClick, disabled, title}) => {
 
 
     return (<>
-        <div className={`absolute bottom-20 right-20 z-50`}>
+        <div className={`absolute bottom-12 right-16 z-50`}>
             <button
                 onClick={() => {
                     onClick(true);
-                    console.log("hey")
                 }}
                 disabled={disabled}
                 type="submit"
