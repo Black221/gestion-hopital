@@ -9,8 +9,8 @@ import heart from "../../../assets/heart.jpg"
 import temp from "../../../assets/oxygene.png"
 import weight from "../../../assets/weight.svg"
 import {Calendar} from "../Share/Calendar.jsx";
-import {FloatingButton} from "../Share/FloatingButton.jsx";
 import {MESURE} from "../../dummy.js";
+import {NavLink} from "react-router-dom";
 
 export const Home = () => {
 
@@ -76,7 +76,9 @@ export const Home = () => {
             </div>
         </div>}
 
-        <FloatingButton title={"Prendre Rendez-vous"} onClick={setOnChangeDate} />
+        <div className={"absolute bottom-10 right-10"}>
+            <NavLink to={"/patient/rendez-vous"} className={"py-2 px-3 bg-green-500 rounded-xl text-white font-semibold text-sm"}>Prendre rendez-vous</NavLink>
+        </div>
 
     </>)
 }

@@ -1,8 +1,8 @@
 import {Route, Routes} from "react-router-dom";
 import {Home} from "./Home.jsx";
-import {History} from "./History.jsx";
 import {Notifications} from "./Notifications.jsx";
 import {Agenda} from "./Agenda.jsx";
+import {DoctorProfile} from "./DoctorProfile.jsx";
 
 
 export const Content = () => {
@@ -17,7 +17,7 @@ export const Content = () => {
             <Route path={"/rendez-vous"} element={<Agenda />} />
 
             {/*  page*/}
-            <Route path={"/historiques"} element={<History />} />
+            <Route path={"/rendez-vous/*"} element={<DoctorProfile />} />
 
             {/*  page*/}
             <Route path={"/notifications"} element={<Notifications />} />
