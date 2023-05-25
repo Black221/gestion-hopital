@@ -49,6 +49,7 @@ export const Calendar = ({getDate, dateToColor}) => {
 
                         getDate(`${d}/${(monthToRender + 1)}/${yearToRender}`);
                         setSelectedDate(`${d}/${monthToRender + 1}/${yearToRender}`);
+                        console.log("hey")
 
                     }} className={`
                         px-2 py-2 cursor-pointer flex w-full justify-center rounded-full 

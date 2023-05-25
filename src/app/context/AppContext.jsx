@@ -8,7 +8,7 @@ export const AppContextProvider = ({ children}) => {
 
     const [user, setUser] = useState("LHacSRT")
     const [patients, setPatients] = useState(PATIENT);
-
+    const [screenSize, setScreenSize] = useState(0);
     const login = (log) => {
 
         localStorage.setItem('user', log.user)
@@ -18,7 +18,8 @@ export const AppContextProvider = ({ children}) => {
     return (
         <StateContext.Provider value={{
             user, login,
-            patients, setPatients
+            patients, setPatients,
+            screenSize, setScreenSize
         }}>
             {children}
         </StateContext.Provider>

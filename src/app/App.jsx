@@ -8,6 +8,7 @@ import {Patient} from "./pages/Patient.jsx";
 import {Admin} from "./pages/Admin.jsx";
 import {useEffect} from "react";
 import {NotFound} from "./pages/NotFound.jsx";
+import {useAppStateContext} from "./context/AppContext.jsx";
 
 
 function ScrollToTop() {
@@ -23,6 +24,21 @@ function ScrollToTop() {
 
 
 function App() {
+
+    const {
+        setScreenSize,
+    } = useAppStateContext();
+
+
+    useEffect(() => {
+        const handleResize = () => setScreenSize(window.innerWidth ? window.innerWidth : 0);
+        window.addEventListener('resize', handleResize);
+
+        handleResize();
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, );
+
 
     return (<>
         <div className="">
