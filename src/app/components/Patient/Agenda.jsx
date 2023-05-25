@@ -13,6 +13,7 @@ export const Agenda = () => {
             date: "25/5/2023",
             data: [
                 {
+                    id: "1",
                     name: "Docteur Bamba BAR",
                     extra: "disponible",
                     adresse: "Mboro",
@@ -20,6 +21,7 @@ export const Agenda = () => {
                     profession: "profession..."
 
                 },{
+                    id: "1",
                     name: "Docteur Bouna Ndiaye",
                     extra: "disponible",
                     adresse: "Mboro",
@@ -27,6 +29,7 @@ export const Agenda = () => {
                     profession: "profession..."
 
                 },{
+                    id: "1",
                     name: "Docteur Papa Ndour",
                     extra: "disponible",
                     adresse: "Mboro",
@@ -39,6 +42,7 @@ export const Agenda = () => {
             date: "26/5/2023",
             data: [
                 {
+                    id: "1",
                     name: "Docteur Amadou Diagne",
                     extra: "disponible",
                     adresse: "Mboro",
@@ -46,6 +50,7 @@ export const Agenda = () => {
                     profession: "profession..."
 
                 },{
+                    id: "1",
                     name: "Docteur Moussa Sall",
                     extra: "disponible",
                     adresse: "Mboro",
@@ -53,6 +58,7 @@ export const Agenda = () => {
                     profession: "profession..."
 
                 },{
+                    id: "1",
                     name: "Docteur Mouhamed Diop",
                     extra: "disponible",
                     adresse: "Mboro",

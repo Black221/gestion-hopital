@@ -25,8 +25,7 @@ export const MedecinInfo = ({data, getSelectedMedecin}) => {
                     <button onClick={() => getSelectedMedecin(data.id)}
                             className={"py-1 px-8 rounded-lg bg-green-400 text-white font-bold"}>Contacter
                     </button>
-                    <NavLink to={`/patient/rendez-vous/${data.id}`}
-                             className={"py-1 px-8 rounded-lg bg-blue-400 text-white font-bold"}>Voir profil</NavLink>
+
                 </div>}
 
             </div>
