@@ -4,14 +4,13 @@ import {SearchBar} from "../Share/SearchBar.jsx";
 import {MedecinInfo} from "../Share/MedecinInfo.jsx";
 import {useEffect, useState} from "react";
 import {Textarea} from "../Share/Textarea.jsx";
-import {Heading} from "../Share/Heading.jsx";
 
 
 export const Agenda = () => {
 
     const DATE = [
         {
-            date: "10/5/2023",
+            date: "25/5/2023",
             data: [
                 {
                     name: "Docteur Bamba BAR",
@@ -21,14 +20,40 @@ export const Agenda = () => {
                     profession: "profession..."
 
                 },{
-                    name: "Docteur Bamba BAR",
+                    name: "Docteur Bouna Ndiaye",
                     extra: "disponible",
                     adresse: "Mboro",
                     telephone: "77 777 77 77",
                     profession: "profession..."
 
                 },{
-                    name: "Docteur Bamba BAR",
+                    name: "Docteur Papa Ndour",
+                    extra: "disponible",
+                    adresse: "Mboro",
+                    telephone: "77 777 77 77",
+                    profession: "profession..."
+
+                },
+            ],
+        },{
+            date: "26/5/2023",
+            data: [
+                {
+                    name: "Docteur Amadou Diagne",
+                    extra: "disponible",
+                    adresse: "Mboro",
+                    telephone: "77 777 77 77",
+                    profession: "profession..."
+
+                },{
+                    name: "Docteur Moussa Sall",
+                    extra: "disponible",
+                    adresse: "Mboro",
+                    telephone: "77 777 77 77",
+                    profession: "profession..."
+
+                },{
+                    name: "Docteur Mouhamed Diop",
                     extra: "disponible",
                     adresse: "Mboro",
                     telephone: "77 777 77 77",
