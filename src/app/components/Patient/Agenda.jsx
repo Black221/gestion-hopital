@@ -104,7 +104,8 @@ export const Agenda = () => {
             </div>
 
             <div className={"bg-rd-200 w-full md:px-8 px-2"}>
-                <SearchBar label={"Médecins disponibles :"} getSearch={() => {}} />
+                <h3 className={"font-semibold"}>Médecins disponibles :</h3>
+                <SearchBar label={""} getSearch={() => {}} />
             </div>
 
             <div className={"md:px-6 px-2"}>

@@ -11,7 +11,7 @@ export const SearchBar = ({label, getSearch}) => {
 
     return (<>
         <div className="p-2 flex items-center justify-between pb-4 bg-white ">
-            <p className={`text-main font-semibold text-xl`}>
+            <p className={`text-main font-semibold md:text-xl text-sm`}>
                 {label}
             </p>
             <label htmlFor="table-search" className="sr-only">Rechercher...</label>
@@ -27,7 +27,7 @@ export const SearchBar = ({label, getSearch}) => {
                 <input type="text" id="table-search-users"
                        value={search}
                        onChange={(e) => setSearch(e.target.value)}
-                       className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                       className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg md:w-80 w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                        placeholder="Chercher..."/>
             </div>
         </div>
