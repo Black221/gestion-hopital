@@ -13,11 +13,11 @@ export const MedecinInfo = ({data, getSelectedMedecin}) => {
 
             <div className={"border rounded-xl pt-1  w-full"}>
                 <Heading title={data ? data.name : "Docteur X"} subtitle={data ? data.extra : "disponible"} text={
-                    <ul className={"ml-4"}>
-                        <li>Profession : {data ?data.profession : ""}</li>
-                        <li>Adresse : {data ?data.adresse : ""} </li>
-                        <li>Téléphone : {data ? data.telephone : ""} </li>
-                    </ul>
+                    <>
+                        <li className={"ml-4"}>Profession : {data ?data.profession : ""}</li>
+                        <li className={"ml-4"}>Adresse : {data ?data.adresse : ""} </li>
+                        <li className={"ml-4"}>Téléphone : {data ? data.telephone : ""} </li>
+                    </>
                 } />
 
 
@@ -25,7 +25,8 @@ export const MedecinInfo = ({data, getSelectedMedecin}) => {
                     <button onClick={() => getSelectedMedecin(data.id)}
                             className={"py-1 px-8 rounded-lg bg-green-400 text-white font-bold"}>Contacter
                     </button>
-
+                    <NavLink to={`/patient/rendez-vous/${data.id}`}
+                             className={"py-1 px-8 rounded-lg bg-blue-400 text-white font-bold"}>Voir profil</NavLink>
                 </div>}
 
             </div>

@@ -9,19 +9,21 @@ export const Content = () => {
 
     return (<>
 
-        <Routes>
-            {/*Home page*/}
-            <Route path={"/"} element={<Home />} />
+        <div>
+            <Routes>
+                {/*Home page*/}
+                <Route path={"/"} element={<Home />} />
 
-            {/*  page*/}
-            <Route path={"/rendez-vous"} element={<Agenda />} />
+                {/*  page*/}
+                <Route path={"/rendez-vous"} element={<Agenda />} />
 
-            {/*  page*/}
-            <Route path={"/rendez-vous/*"} element={<DoctorProfile />} />
+                {/*  page*/}
+                <Route path={"/rendez-vous/:id"} element={<DoctorProfile />} />
 
-            {/*  page*/}
-            <Route path={"/notifications"} element={<Notifications />} />
+                {/*  page*/}
+                <Route path={"/notifications"} element={<Notifications />} />
 
-        </Routes>
+            </Routes>
+        </div>
     </>)
 }
