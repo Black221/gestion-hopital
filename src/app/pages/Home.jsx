@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useAuthStateContext} from "../context/AuthContext.jsx";
 
@@ -23,7 +23,6 @@ export const Home = () => {
 
     const onLogin = () => {
 
-        navigate(`/${select}`)
     }
 
     return (
@@ -59,7 +58,7 @@ export const Home = () => {
                     </div>
                 </div>
                 <div className={`text-end`}>
-                    <button onClick={() => onLogin() } className={`px-6 py-1 rounded bg-green-600 text-xl font-semibold text-white`}>Valider</button>
+                    <NavLink to={`/${select}`} className={`px-6 py-1 rounded bg-green-600 text-xl font-semibold text-white`}>Valider</NavLink>
                 </div>
             </div>
         </div>
