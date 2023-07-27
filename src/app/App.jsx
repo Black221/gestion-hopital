@@ -1,16 +1,24 @@
 // External importation
-import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 
 //Internal importation
-import {Home} from "./pages/Home.jsx";
-import {Doctor} from "./pages/Doctor.jsx";
-import {Patient} from "./pages/Patient.jsx";
-import {Admin} from "./pages/Admin.jsx";
+import {Home} from "./home/Home.jsx";
+import {Doctor} from "./doctor/Doctor.jsx";
+import {Patient} from "./patient/Patient.jsx";
+import {Admin} from "./admin/Admin.jsx";
 import {useEffect} from "react";
-import {NotFound} from "./pages/NotFound.jsx";
-import {useAppStateContext} from "./context/AppContext.jsx";
+import {NotFound} from "./notFound/NotFound.jsx";
+import {Login} from "./auth/pages/Login.jsx";
+import {Register} from "./auth/pages/Register.jsx";
+import useAppState from "../hooks/useAppState.js";
+import Layout from "./Layout.jsx";
+import RequiredAuth from "../guards/RequiredAuth.jsx";
+import useAuth from "../hooks/useAuth.js";
+import DoctorGuard from "../guards/DoctorGuard.jsx";
+import PatientGuard from "../guards/PatientGuard.jsx";
+import AdminGuard from "../guards/AdminGuard.jsx";
 
-
+{/*
 function ScrollToTop() {
 
     const { pathname } = useLocation();
@@ -21,13 +29,15 @@ function ScrollToTop() {
 
     return null;
 }
+*/}
 
-
-function App() {
+export const App = () =>  {
 
     const {
         setScreenSize,
-    } = useAppStateContext();
+    } = useAppState();
+
+    const auth = useAuth();
 
 
     useEffect(() => {
@@ -37,38 +47,53 @@ function App() {
         handleResize();
 
         return () => window.removeEventListener('resize', handleResize);
-    }, );
+    }, [setScreenSize]);
 
 
     return (<>
-        <div className="">
-            <BrowserRouter>
-                <ScrollToTop />
+        <Routes>
+            <Route path="/" element={ <Layout /> }>
 
-                <div>
-                    <Routes>
-                        {/*Home page*/}
-                        <Route path={`/`} exact element={ <Home /> } />
+                {/*} <ScrollToTop /> */}
 
-                        {/*Doctor page*/}
-                        <Route path={`/medecin/*`} exact element={ <Doctor /> } />
+                {/* Public routes */}
+                <Route path={`/`} exact element={ <Home /> } />
+                <Route path={`/login`} exact element={ <Login /> } />
+                <Route path={`/register`} exact element={ <Register /> } />
 
-                        {/*Patient page*/}
-                        <Route path={`/patient/*`} exact element={ <Patient /> } />
+                {/*
+                 Private routes
+                <Route element={ <RequiredAuth/> }>
+                    <Route path={`/home/*`} exact element={<>{
+                        auth.role === "DOCTOR"
+                            ? <Doctor />
+                            : auth.role === "PATIENT"
+                                ? <Patient />
+                                : auth.role === "ADMIN"
+                                    ? <Admin />
+                                    : <NotFound />
+                    }</>} />
+                </Route>
+                 */}
 
-                        {/*Admin page*/}
-                        <Route path={`/office/*`} exact element={ <Admin /> } />
+                <Route element={<DoctorGuard />}>
+                    <Route path={`/medecin/*`} exact element={ <Doctor/> } />
+                </Route>
 
-                        <Route path={`*`} element={ <NotFound /> } />
+                <Route element={<PatientGuard />}>
 
-                    </Routes>
-                </div>
+                    <Route path={`/patient/*`} exact element={ <Patient /> } />
+                </Route>
 
-            </BrowserRouter>
 
-        </div>
+                {/* Admin routes */}
+                <Route path={`/office/*`} exact element={ <Admin /> } />
+
+                {/*Not Found page*/}
+                <Route path={`*`} element={ <NotFound /> } />
+
+            </Route>
+        </Routes>
     </>)
-
 }
 
-export default App

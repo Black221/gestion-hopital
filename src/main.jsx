@@ -1,16 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './app/App.jsx'
+import {App} from './app/App.jsx'
 import './index.css'
-import {AppContextProvider} from "./app/context/AppContext.jsx";
-import {AuthContextProvider} from "./app/context/AuthContext.jsx";
+import {AppContextProvider} from "./context/AppContext.jsx";
+import {AuthContextProvider} from "./context/AuthContext.jsx";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <AppContextProvider>
-            <AuthContextProvider>
-                <App />
-            </AuthContextProvider>
-        </AppContextProvider>
+        <BrowserRouter>
+            <AppContextProvider>
+                <AuthContextProvider>
+                    <Routes>
+                        <Route path="/*" element={<App />} />
+                    </Routes>
+                </AuthContextProvider>
+            </AppContextProvider>
+        </BrowserRouter>
     </React.StrictMode>,
 )
