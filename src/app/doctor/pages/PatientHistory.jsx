@@ -9,6 +9,7 @@ import {Heading} from "../../share/Heading.jsx";
 import axios from "../../../api/Axio.js";
 import useAxiosFunction from "../../../hooks/useAxiosFunction.js";
 import useAuth from "../../../hooks/useAuth.js";
+import useLoading from "../../../hooks/useLoading.jsx";
 
 
 export const PatientHistory = () => {
@@ -21,6 +22,8 @@ export const PatientHistory = () => {
     const [response, error, loading, axiosFetch] = useAxiosFunction();
     const [visitResponse = response, visitError = error, visitLoading = loading, visitAxios = axiosFetch] = useAxiosFunction();
     const [visits, setVisits] = useState(null);
+
+    const [Loader] = useLoading();
 
     const {accessToken} = useAuth();
 
@@ -126,7 +129,7 @@ export const PatientHistory = () => {
 
         <div className={" space-x-10 items-start"}>
 
-
+            <Loader isLoading={loading || visitLoading} />
 
             <div className={"flex justify-around items-center flex-wrap-reverse mb-10 "}>
 
@@ -142,7 +145,7 @@ export const PatientHistory = () => {
 
             </div>
 
-            {patient && patient.diseaseHistory && <Heading title={"Antécédents"} text={patient.diseaseHistory}/>}
+            {patient && patient.diseasesHistory && <Heading title={"Antécédents"} text={patient.diseasesHistory}/>}
 
             <h2 className={"font-bold text-xl mb-2"}>{date}</h2>
             {measure ? <DiagnosticForm data={measure}/> : <div className={"text"}>
@@ -155,7 +158,7 @@ export const PatientHistory = () => {
         {(measure === null || !measure) && date === today && <div className={"py-10 text-center"}>
 
 
-            <NavLink to={"/home/consultation/"+id} className={"py-2 px-4 bg-green-500 rounded text-white font-bold"}>Faire consultation</NavLink>
+            <NavLink to={"/medecin/consultation/"+id} className={"py-2 px-4 bg-green-500 rounded text-white font-bold"}>Faire consultation</NavLink>
 
         </div>}
 

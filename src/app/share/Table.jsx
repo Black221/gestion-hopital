@@ -1,6 +1,33 @@
 import {NavLink} from "react-router-dom";
+import {useEffect, useState} from "react";
+import useConvertToFrench from "../../hooks/useConvertToFrench.js";
 
 export const Table = ({column, data, action}) => {
+
+    const [sens, setSens] = useState(false);
+    const [current, setCurrent] = useState("patientId");
+    const [convert] = useConvertToFrench();
+
+    const sortTable = (column) => {
+        let s = sens;
+        if (current === column)
+            s = !s
+        else s = true;
+        console.log(s, sens)
+
+        let nd = data.sort((a, b) => {
+            if (a[column] > b[column])
+                return s ? 1 : -1;
+            else
+                return s ? -1 : 1;
+        })
+        setSens(sens)
+        setCurrent(column)
+    }
+
+    useEffect(() => {
+        console.log(sens)
+    }, [sens])
 
     return (<>
 
@@ -11,7 +38,7 @@ export const Table = ({column, data, action}) => {
                     <tr>
                         {column && column.map((c, index) => (
                             <th key={index} scope="col" className="px-3 py-3">
-                                {c}
+                                <button className={"uppercase"} onClick={() => sortTable(c)}>{convert(c)}</button>
                             </th>
                         ))}
                         <th colSpan={action.ref.length} scope="col" className="px-3 py-3">

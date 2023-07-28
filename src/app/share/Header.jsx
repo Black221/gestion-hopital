@@ -2,8 +2,6 @@
 
 //Internal importation
 import userSvg from "../../assets/profile.svg";
-import down from "../../assets/down.svg"
-import notification from "../../assets/notification.svg"
 import useAuth from "../../hooks/useAuth.js";
 import {NavLink} from "react-router-dom";
 import logout from "../../assets/door-open.svg";

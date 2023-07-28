@@ -17,6 +17,7 @@ import useAuth from "../hooks/useAuth.js";
 import DoctorGuard from "../guards/DoctorGuard.jsx";
 import PatientGuard from "../guards/PatientGuard.jsx";
 import AdminGuard from "../guards/AdminGuard.jsx";
+import Redirection from "./auth/pages/Redirection.jsx";
 
 {/*
 function ScrollToTop() {
@@ -60,6 +61,7 @@ export const App = () =>  {
                 <Route path={`/`} exact element={ <Home /> } />
                 <Route path={`/login`} exact element={ <Login /> } />
                 <Route path={`/register`} exact element={ <Register /> } />
+                <Route path={`/redirection`} exact element={ <Redirection /> } />
 
                 {/*
                  Private routes

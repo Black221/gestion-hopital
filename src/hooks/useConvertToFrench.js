@@ -42,6 +42,7 @@ export default  function useConvertToFrench () {
         Friday: 'Vendredi',
         Saturday: 'Samedi',
         Sunday: 'Dimanche',
+        firstname : "prenom", lastname : "nom", nationality: "nationalite", age : "age", sex: "sexe", address : "adresse", patientId : "id"
     };
 
     function convertToFrench(text) {

@@ -3,6 +3,7 @@ import {useRef, useState} from "react";
 import axios from "../../../api/Axio.js";
 import {Link} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth.js";
+import {FaEye, FaEyeSlash} from "react-icons/fa6";
 
 
 export const Register = () => {
@@ -51,7 +52,11 @@ export const Register = () => {
             if (!err?.response)
                 setErrMessage("No server Response")
             console.log(err.response.data)
-            setErrMessage("Sorry!!!")
+            if (err?.response?.data?.message?.search("user.user_login_unique") >= 0)
+                setErrMessage("Ce login existe déjà!")
+            else
+                setErrMessage("Une erreur c'est produite! Veuillez réessayer.")
+
         })
     }
 
@@ -61,7 +66,7 @@ export const Register = () => {
                 <div className={`text-3xl text-main text-center`}>
                     <div>Oasis Care</div>
                     <div className={"text-xl font-light"}> L&apos;accés aux soins ou que vous soyez</div>
-                    <div>
+                    <div className={"text-sm text-red-500"}>
                         {errMessage}
                     </div>
                 </div>
@@ -82,7 +87,7 @@ export const Register = () => {
 
                     <InputForm className={""}
                                label={"login"}
-                               type={"text"}
+                               type={"email"}
                                getValue={setLogin}
                                regex={LOGIN_REGEX}
                                required={true} />
@@ -94,8 +99,10 @@ export const Register = () => {
                                regex={PASSWORD_REGEX}
                                required={true} />
 
-                    <div>
-                        <button type={"button"} onClick={() => setViewPassword(!viewPassword)}>voir</button>
+                    <div className={"text-end"}>
+                        <button type={"button"} onClick={() => setViewPassword(!viewPassword)}>
+                            {viewPassword ? <FaEyeSlash /> : <FaEye /> }
+                        </button>
                     </div>
                 </div>
                 {!loading ? <div className={"text-center"}>
@@ -107,7 +114,7 @@ export const Register = () => {
                 </div> : "loading..."}
 
                 <div>
-                    <Link to={"/login"}>Go login!</Link>
+                    <Link to={"/login"}>Se connecter.</Link>
                 </div>
             </form>
         </div>

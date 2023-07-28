@@ -30,12 +30,12 @@ export const Content = () => {
 
             <Routes>
 
-                <Route path={"/"} exact element={ <Index /> } />
+                <Route path={"/"} exact element={ <AddPatient /> } />
                 {/**/}
                 <Route path={"/agenda"} element={ <Agenda />} />
 
                 {/**/}
-                <Route path={"/ajouter-dossier"} element={ <AddPatient />} />
+                <Route path={"/ajouter-dossier"} element={ <AddPatient /> } />
 
                 {/**/}
                 <Route path={"/consultation/:id"} element={ <Consultation />} />

@@ -25,9 +25,9 @@ export const Breadcrumb = ({link, direct}) => {
                 return (
                     <div key={(index + 1) * 10} className={"flex items-center"}>
                         <Arrow  />
-                        <NavLink  to={`${!direct ? a.current : l}`} className={className}>
+                        <span   className={className}>
                             {l}
-                        </NavLink>
+                        </span>
                     </div>
                 )
             })}

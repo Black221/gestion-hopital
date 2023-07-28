@@ -1,16 +1,94 @@
 import {Breadcrumb} from "../../share/Breadcrumb.jsx";
 import {Table} from "../../share/Table.jsx";
-import { useState} from "react";
+import {useEffect, useState} from "react";
+import axios from "../../../api/Axio.js";
+import moment from "moment/moment.js";
+import useAxiosFunction from "../../../hooks/useAxiosFunction.js";
+import useAuth from "../../../hooks/useAuth.js";
+import useLoading from "../../../hooks/useLoading.jsx";
 
 
 export const ModifyPatient = () => {
 
     const [search, setSearch] = useState("");
+    const [data, setData] = useState([]);
+    const [dataToRender, setDataToRender] = useState([]);
+
+    const [response, error, loading, axiosFetch] = useAxiosFunction()
+    const {user, accessToken} = useAuth();
+
+    const [Loader] = useLoading();
+
+    useEffect( () => {
+
+        async function fetchData () {
+            await axiosFetch({
+                axiosInstance: axios,
+                method: 'GET',
+                url: 'patients/byDoctor/'+user.login,
+                requestConfig: [
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': '*/*',
+                            'withCredentials': 'true',
+                            'Authorization': 'Bearer ' + accessToken
+                        }
+                    }
+                ]
+            })
+        }
+
+        fetchData()
+
+        return () => null;
+
+    }, [])
+
+    useEffect(() => {
+        if (error === '' && response) {
+            let newArray = response.map((item) => ({
+                patientId: item.user.login,
+                firstname: item.user.firstname,
+                lastname: item.user.lastname,
+                address: item.address,
+                sex: item.sex,
+                age: getAge(item.birthday),
+                nationality:  item.nationality
+            }))
+            setData(newArray)
+        }
+    }, [response, error])
+
+    const getAge = (birthday) => {
+        const today = moment().format('YYYY');
+
+        return today - moment(birthday).format('YYYY')
+    }
+
+
+    useEffect(() => {
+        if (search !== "")
+            setDataToRender(data.filter(({firstname, lastname, nationality, age, sex, patientId}) => (
+                firstname.toLowerCase().search(search) >= 0
+                || lastname.toLowerCase().search(search) >= 0
+                || nationality.toLowerCase().search(search) >= 0
+                || age.toString().toLowerCase().search(search) >= 0
+                || sex.toLowerCase().search(search) >= 0
+                || patientId.toLowerCase().search(search) >= 0
+
+            )));
+        else
+            setDataToRender(data);
+
+    }, [search, data])
 
 
     return (<>
 
         <Breadcrumb link={["medecin", "modifier-dossier"]} />
+
+        <Loader isLoading={loading} />
 
         <div className={"flex flex-col items-center justify-center space-y-10 mt-20"}>
 
@@ -31,7 +109,7 @@ export const ModifyPatient = () => {
             </div>
 
             <div className={"w-10/12"}>
-                <Table column={["id", "nom", "prenom", "telephone", "cni"]} data={[]} action={{ref: ["modifier-dossier"], position: ""}} />
+                <Table column={["patientId", "firstname", "lastname", "age", "sex", "address", "nationality"]} data={dataToRender} action={{ref: ["modifier-dossier"], position: ""}} />
 
             </div>
 

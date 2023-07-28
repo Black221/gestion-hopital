@@ -1,5 +1,5 @@
 import {Breadcrumb} from "../../share/Breadcrumb.jsx";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Textarea} from "../../share/Textarea.jsx";
 import {useEffect, useState} from "react";
 import {Measurement} from "../components/Measurment.jsx";
@@ -7,27 +7,31 @@ import axios from "../../../api/Axio.js";
 import useAxiosFunction from "../../../hooks/useAxiosFunction.js";
 import useAuth from "../../../hooks/useAuth.js";
 import moment from "moment";
+import useNotification from "../../../hooks/useNotification.jsx";
+import useLoading from "../../../hooks/useLoading.jsx";
 
 
 const Consultation = () => {
 
     const {id} = useParams();
+    const navigate = useNavigate();
 
     const [diseasesHistory, setDiseasesHistory] = useState(null);
     const [healthCondition, setHealthCondition] = useState(null);
     const [measure, setMeasure] = useState(null);
 
-    const [response, error, loading, axiosFetch] = useAxiosFunction()
-    const [isLoading, setIsLoading] = useState(false);
-    const [isSaved, setIsSaved] = useState(false);
+    const [response, error, loading, axiosFetch] = useAxiosFunction();
+    const [message, setMessage] = useState("");
+
+    const [noResponse, showNo, Notification] = useNotification();
+    const [conResponse, showCon, Confirmation] = useNotification();
+    const [Loader] = useLoading();
 
     const {user, accessToken} = useAuth();
     const today = moment().format('YYYY-MM-DD');
 
 
-    const submitPatient = async (e) => {
-        e.preventDefault();
-        setIsLoading(true);
+    const submitPatient = async () => {
         const data = {
             ...measure, healthCondition, doctorId : user.login, patientId: id,
             date : today, hours : moment().format('HH:mm')
@@ -55,11 +59,38 @@ const Consultation = () => {
         console.log(response, error)
     }, [response, error])
 
+    useEffect(() => {
+
+        if (response) {
+            setMessage("Consultation effectué")
+            showNo(true)
+        }
+
+    }, [response])
+
+    useEffect(() => {
+        if (noResponse === "Ok" && response.message === "visit added")
+            navigate("/medecin/voir-dossier/"+id);
+
+    }, [noResponse])
+
+    useEffect(() => {
+        if (conResponse === "Confirmer")
+            submitPatient()
+    }, [conResponse])
+
     return (<>
 
         <Breadcrumb link={["medecin", "consultation", id]} />
 
-        <form onSubmit={submitPatient} className={"items-start"}>
+        <Confirmation message={{title: "Confirmation", text: "Etes vous sur de vouloir continué"}} actions={["Confirmer", "Annuler"]} />
+        <Notification message={{title: "Ajout", text: message}} actions={["Ok"]} />
+        <Loader isLoading={loading} />
+
+        <form onSubmit={(e) => {
+            e.preventDefault()
+            showCon(true)
+        }} className={"items-start"}>
 
             <div className={"flex justify-around flex-wrap"}>
 
