@@ -8,13 +8,9 @@ import addUser from "../../../assets/addUser.svg";
 import list from "../../../assets/list.svg";
 import dashboard from "../../../assets/dashboard.svg";
 import logout from "../../../assets/door-open.svg";
-import history from "../../../assets/history.svg";
 import medical from "../../../assets/medical.svg";
 import modify from "../../../assets/modify.svg";
-import setting from "../../../assets/setting.svg";
 import notification from "../../../assets/notification.svg";
-import stat from "../../../assets/stat.svg";
-import user from "../../../assets/profile.svg"
 import down from "../../../assets/down.svg"
 import up from "../../../assets/up.svg"
 import calendar from "../../../assets/calendar.svg"
