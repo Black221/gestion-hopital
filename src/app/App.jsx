@@ -2,7 +2,7 @@
 import {Routes, Route} from 'react-router-dom';
 
 //Internal importation
-import {Home} from "./home/Home.jsx";
+//import {Home} from "./home/Home.jsx";
 import {Doctor} from "./doctor/Doctor.jsx";
 import {Patient} from "./patient/Patient.jsx";
 import {Admin} from "./admin/Admin.jsx";
@@ -12,11 +12,9 @@ import {Login} from "./auth/pages/Login.jsx";
 import {Register} from "./auth/pages/Register.jsx";
 import useAppState from "../hooks/useAppState.js";
 import Layout from "./Layout.jsx";
-import RequiredAuth from "../guards/RequiredAuth.jsx";
-import useAuth from "../hooks/useAuth.js";
+//import useAuth from "../hooks/useAuth.js";
 import DoctorGuard from "../guards/DoctorGuard.jsx";
 import PatientGuard from "../guards/PatientGuard.jsx";
-import AdminGuard from "../guards/AdminGuard.jsx";
 import Redirection from "./auth/pages/Redirection.jsx";
 
 {/*
@@ -38,7 +36,7 @@ export const App = () =>  {
         setScreenSize,
     } = useAppState();
 
-    const auth = useAuth();
+    //const auth = useAuth();
 
 
     useEffect(() => {
@@ -58,7 +56,7 @@ export const App = () =>  {
                 {/*} <ScrollToTop /> */}
 
                 {/* Public routes */}
-                <Route path={`/`} exact element={ <Home /> } />
+                <Route path={`/`} exact element={ <Login /> } />
                 <Route path={`/login`} exact element={ <Login /> } />
                 <Route path={`/register`} exact element={ <Register /> } />
                 <Route path={`/redirection`} exact element={ <Redirection /> } />
