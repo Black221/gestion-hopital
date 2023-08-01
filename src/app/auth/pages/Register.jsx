@@ -8,7 +8,8 @@ import {FaEye, FaEyeSlash} from "react-icons/fa6";
 export const Register = () => {
 
 
-    const LOGIN_REGEX = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+    const EMAIL_REGEX = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+    const LOGIN_REGEX = /^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{0,19}$/;
     const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,32}$/;
 
     const [firstname, setFirstname] = useState("");
@@ -22,7 +23,7 @@ export const Register = () => {
 
 
     const isValid = () => {
-        return LOGIN_REGEX.test(firstname) && LOGIN_REGEX.test(lastname) && LOGIN_REGEX.test(login) && PASSWORD_REGEX.test(password);
+        return LOGIN_REGEX.test(firstname) && LOGIN_REGEX.test(lastname) && EMAIL_REGEX.test(login) && PASSWORD_REGEX.test(password);
     }
 
     const handleSubmit = (e) => {
