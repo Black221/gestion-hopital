@@ -88,7 +88,7 @@ export const Register = () => {
                                label={"login"}
                                type={"email"}
                                getValue={setLogin}
-                               regex={LOGIN_REGEX}
+                               regex={EMAIL_REGEX}
                                required={true} />
 
                     <InputForm className={""}
