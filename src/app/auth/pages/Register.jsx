@@ -8,7 +8,7 @@ import {FaEye, FaEyeSlash} from "react-icons/fa6";
 export const Register = () => {
 
 
-    const EMAIL_REGEX = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$\s/;
+    const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const LOGIN_REGEX = /^[A-Za-z\s]+$/;
     const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,32}$/;
 
