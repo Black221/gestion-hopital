@@ -1,16 +1,14 @@
 import {InputForm} from "../components/InputForm.jsx";
-import {useRef, useState} from "react";
+import {useState} from "react";
 import axios from "../../../api/Axio.js";
 import {Link} from "react-router-dom";
-import useAuth from "../../../hooks/useAuth.js";
 import {FaEye, FaEyeSlash} from "react-icons/fa6";
 
 
 export const Register = () => {
 
-    const { auth } = useAuth();
 
-    const LOGIN_REGEX = /^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{0,19}$/;
+    const LOGIN_REGEX = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
     const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,32}$/;
 
     const [firstname, setFirstname] = useState("");
