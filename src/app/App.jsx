@@ -16,6 +16,8 @@ import Layout from "./Layout.jsx";
 import DoctorGuard from "../guards/DoctorGuard.jsx";
 import PatientGuard from "../guards/PatientGuard.jsx";
 import Redirection from "./auth/pages/Redirection.jsx";
+import {Home} from "./home/Home.jsx";
+import AdminGuard from "../guards/AdminGuard.jsx";
 
 {/*
 function ScrollToTop() {
@@ -57,6 +59,7 @@ export const App = () =>  {
 
                 {/* Public routes */}
                 <Route path={`/`} exact element={ <Login /> } />
+                <Route path={`/home`} exact element={ <Home /> } />
                 <Route path={`/login`} exact element={ <Login /> } />
                 <Route path={`/register`} exact element={ <Register /> } />
                 <Route path={`/redirection`} exact element={ <Redirection /> } />
@@ -87,7 +90,9 @@ export const App = () =>  {
 
 
                 {/* Admin routes */}
-                <Route path={`/office/*`} exact element={ <Admin /> } />
+                <Route element={<AdminGuard />}>
+                    <Route path={`/office/*`} exact element={ <Admin /> } />
+                </Route>
 
                 {/*Not Found page*/}
                 <Route path={`*`} element={ <NotFound /> } />

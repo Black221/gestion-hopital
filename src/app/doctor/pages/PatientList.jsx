@@ -8,12 +8,14 @@ import useAxiosFunction from "../../../hooks/useAxiosFunction.js";
 import useAuth from "../../../hooks/useAuth.js";
 import moment from "moment";
 import useLoading from "../../../hooks/useLoading.jsx";
+import useDebounce from "../../../hooks/useDebounce.js";
 
 
 export const PatientList = () => {
 
 
     const [search, setSearch] = useState("");
+    const debouncedSearch = useDebounce(search);
     const [data, setData] = useState([]);
     const [dataToRender, setDataToRender] = useState([]);
 
@@ -73,19 +75,19 @@ export const PatientList = () => {
 
 
     useEffect(() => {
-        if (search !== "")
+        if (debouncedSearch !== "")
             setDataToRender(data.filter(({firstname, lastname, nationality, age, sex, patientId}) => (
-                firstname.toLowerCase().search(search) >= 0
-                || lastname.toLowerCase().search(search) >= 0
-                || nationality.toLowerCase().search(search) >= 0
-                || age.toString().toLowerCase().search(search) >= 0
-                || sex.toLowerCase().search(search) >= 0
-                || patientId.toLowerCase().search(search) >= 0
+                firstname.toLowerCase().search(debouncedSearch) >= 0
+                || lastname.toLowerCase().search(debouncedSearch) >= 0
+                || nationality.toLowerCase().search(debouncedSearch) >= 0
+                || age.toString().toLowerCase().search(debouncedSearch) >= 0
+                || sex.toLowerCase().search(debouncedSearch) >= 0
+                || patientId.toLowerCase().search(debouncedSearch) >= 0
             )));
         else
             setDataToRender(data);
 
-    }, [search, data])
+    }, [debouncedSearch, data])
 
 
 

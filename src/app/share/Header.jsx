@@ -8,7 +8,7 @@ import logout from "../../assets/door-open.svg";
 
 export const Header = () => {
 
-    const {user} = useAuth();
+    const { user } = useAuth();
 
     return (<>
 
@@ -21,7 +21,7 @@ export const Header = () => {
 
                 <NavLink to={"/login"} className={"font-semibold flex items-center space-x-2"}><img className={"w-5"} src={logout} alt=""/></NavLink>
                 {/*<img className={"w-6"}  src={notification} alt=""/>*/}
-                <div className={"hidden md:block"}>{user.login}</div>
+                <div className={"hidden md:block"}>{user.lastname}</div>
                 <div className={` flex rounded-full`}>
                     <img className={"w-6"}  src={userSvg} alt=""/>
                     {/*<img className={"w-5"} src={down} alt=""/>*/}

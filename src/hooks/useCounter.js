@@ -1,12 +1,13 @@
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 
 
-export const CountDown = ({start, count}) => {
+const useCounter = () => {
 
     const Ref = useRef(null);
 
     // The state for our timer
     const [timer, setTimer] = useState('00:00:00');
+    const [count, setCount] = useState(10);
 
 
     const getTimeRemaining = (e) => {
@@ -66,20 +67,17 @@ export const CountDown = ({start, count}) => {
 
     // We put empty array to act as componentDid
     // mount only
-    useEffect(() => {
-        if (start)
-            clearTimer(getDeadTime());
-    }, [start]);
 
     // Another way to call the clearTimer() to start
     // the countdown is via action event from the
     // button first we create function to be called
     // by the button
+    const resetTimer = () => {
+        clearTimer(getDeadTime());
+    }
 
-
-    return (
-        <div className="App">
-            <h2>{timer}</h2>
-        </div>
-    )
+    return [setCount, timer, startTimer, resetTimer];
 }
+
+
+export default useCounter;

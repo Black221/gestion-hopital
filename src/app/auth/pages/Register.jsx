@@ -1,7 +1,7 @@
 import {InputForm} from "../components/InputForm.jsx";
 import {useState} from "react";
 import axios from "../../../api/Axio.js";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {FaEye, FaEyeSlash} from "react-icons/fa6";
 
 
@@ -21,6 +21,7 @@ export const Register = () => {
     const [loading, setLoading] = useState(false);
     const [errMessage, setErrMessage] = useState("");
 
+    const navigation = useNavigate();
 
     const isValid = () => {
         return LOGIN_REGEX.test(firstname) && LOGIN_REGEX.test(lastname) && EMAIL_REGEX.test(login) && PASSWORD_REGEX.test(password);
@@ -45,6 +46,8 @@ export const Register = () => {
             setLoading(false)
             //auth.login(res.data)
             console.log(res.data)
+            if (res.data.message.search("activation"))
+                navigation("/redirection")
 
         }).catch(err => {
             setLoading(false)
@@ -61,15 +64,15 @@ export const Register = () => {
 
     return (<>
         <div className={`h-screen w-full flex items-center justify-center text-main`}>
-            <form className={`bottom-20 relative space-y-8`} onSubmit={handleSubmit}>
-                <div className={`text-3xl text-main text-center`}>
+            <form className={` relative space-y-8`} onSubmit={handleSubmit}>
+                <div className={`md:text-3xl text-2xl text-main text-center`}>
                     <div>Oasis Care</div>
                     <div className={"text-xl font-light"}> L&apos;accés aux soins ou que vous soyez</div>
                     <div className={"text-sm text-red-500"}>
                         {errMessage}
                     </div>
                 </div>
-                <div className={`space-y-2 w-96`}>
+                <div className={`space-y-2 md:w-96 w-80`}>
                     <InputForm className={""}
                                label={"firstname"}
                                type={"text"}

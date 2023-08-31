@@ -10,6 +10,7 @@ import axios from "../../../api/Axio.js";
 import useAxiosFunction from "../../../hooks/useAxiosFunction.js";
 import useAuth from "../../../hooks/useAuth.js";
 import useLoading from "../../../hooks/useLoading.jsx";
+import DiseasesHistory from "../../share/DiseasesHistory.jsx";
 
 
 export const PatientHistory = () => {
@@ -20,7 +21,7 @@ export const PatientHistory = () => {
     const [patient, setPatient] = useState(null);
     const [measure, setMeasure] = useState(null);
     const [response, error, loading, axiosFetch] = useAxiosFunction();
-    const [visitResponse = response, visitError = error, visitLoading = loading, visitAxios = axiosFetch] = useAxiosFunction();
+    const [visitResponse , visitError, visitLoading , visitAxios] = useAxiosFunction();
     const [visits, setVisits] = useState(null);
 
     const [Loader] = useLoading();
@@ -77,18 +78,16 @@ export const PatientHistory = () => {
                 religion: response.religion,
                 placeOfBirth: response.placeOfBirth,
                 ethnicGroup: response.ethnicGroup,
-                diseaseHistory: response.diseaseHistory
+                diseasesHistory: response.diseasesHistory
             })
-
             setVisits(response.visits);
-            console.log(response)
         }
     }, [response, error])
 
     useEffect(() => {
 
-        async function fetchData (visitId) {
 
+        async function fetchData (visitId) {
 
             await visitAxios({
                 axiosInstance: axios,
@@ -108,7 +107,7 @@ export const PatientHistory = () => {
         }
 
         if (visits != null) {
-            const visit = visits.filter((v) => moment(v.date).format('DD/M/YYYY') === date)[0];
+            const visit = visits.filter((v) => moment(v.date).format('D/M/YYYY') === date)[0];
             if (visit && visit.visitId)
                 fetchData(visit.visitId)
             else
@@ -145,9 +144,9 @@ export const PatientHistory = () => {
 
             </div>
 
-            {patient && patient.diseasesHistory && <Heading title={"Antécédents"} text={patient.diseasesHistory}/>}
+            <DiseasesHistory getValue={() => {}} data={patient && patient?.diseasesHistory ? JSON.parse(patient?.diseasesHistory) : null} />
 
-            <h2 className={"font-bold text-xl mb-2"}>{date}</h2>
+            <h2 className={"font-bold text-xl my-2"}>{date}</h2>
             {measure ? <DiagnosticForm data={measure}/> : <div className={"text"}>
 
                 Pas de prise en charge.
@@ -156,7 +155,6 @@ export const PatientHistory = () => {
         </div>
 
         {(measure === null || !measure) && date === today && <div className={"py-10 text-center"}>
-
 
             <NavLink to={"/medecin/consultation/"+id} className={"py-2 px-4 bg-green-500 rounded text-white font-bold"}>Faire consultation</NavLink>
 

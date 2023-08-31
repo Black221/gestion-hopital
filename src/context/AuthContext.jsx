@@ -14,7 +14,8 @@ export const AuthContextProvider = ({ children}) => {
 
     const login = (data) => {
 
-        setUser({login: data.login, id: data.id});
+        console.log(data)
+        setUser({login: data.login, id: data.id, firstname: data.firstname, lastname: data.lastname});
         setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken)
         setRole(data.role);

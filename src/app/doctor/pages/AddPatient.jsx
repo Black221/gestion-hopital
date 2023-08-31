@@ -6,7 +6,7 @@ import useAuth from "../../../hooks/useAuth.js";
 import {Textarea} from "../../share/Textarea.jsx";
 import useAxiosFunction from "../../../hooks/useAxiosFunction.js";
 import axios from "../../../api/Axio.js";
-import {NavLink, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import useNotification from "../../../hooks/useNotification.jsx";
 import useLoading from "../../../hooks/useLoading.jsx";
 
@@ -31,8 +31,7 @@ export const AddPatient = () => {
 
     const {user, accessToken} = useAuth();
 
-    const submitPatient = async (e) => {
-        e.preventDefault();
+    const submitPatient = async () => {
         const data = {
             ...patient,...measure, healthCondition, doctor : user.login
         }
@@ -82,6 +81,7 @@ export const AddPatient = () => {
     }, [noResponse])
 
     useEffect(() => {
+        console.log(conResponse)
         if (conResponse === "Confirmer")
             submitPatient()
     }, [conResponse])

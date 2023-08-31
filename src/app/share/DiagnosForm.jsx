@@ -3,6 +3,7 @@ import {MeasurementInfo} from "./MeasurementInfo.jsx";
 import {Textarea} from "./Textarea.jsx";
 import {useState} from "react";
 import moment from "moment";
+import AutoFormInput from "./AutoFormInput.jsx";
 
 
 export const DiagnosticForm = ({data}) => {
@@ -18,11 +19,9 @@ export const DiagnosticForm = ({data}) => {
             <MeasurementInfo data={data} />
 
             <div className={"py-5"}></div>
-            <Heading title={"Ordonnance"} />
 
-            <div className={"px-10"}>
-                <Textarea row={10} value={diagnostic} setValue={setDiagnostic} disabled={data.date !== moment().format("D/M/YYYY")} />
-            </div>
+            <AutoFormInput title={"Prescription"} />
+
 
             {data.date === moment().format("D/M/YYYY") && <div className={"text-end pt-10"}>
                 <button

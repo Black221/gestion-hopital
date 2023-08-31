@@ -1,13 +1,13 @@
 import {Calendar} from "../../share/Calendar.jsx";
 
 import {Breadcrumb} from "../../share/Breadcrumb.jsx";
-import {Event} from "../../share/Event.jsx";
 import {DailyDisplay} from "../../share/DailyDisplay.jsx";
 import {useEffect, useState} from "react";
 import useAxiosFunction from "../../../hooks/useAxiosFunction.js";
 import axios from "../../../api/Axio.js";
 import useAuth from "../../../hooks/useAuth.js";
 import moment from "moment";
+import useLoading from "../../../hooks/useLoading.jsx";
 
 export const Agenda = () => {
 
@@ -15,7 +15,9 @@ export const Agenda = () => {
     const [availabilities, setAvailabilities] = useState(null);
 
     const [getResponse , getError , getLoading , getAxiosFetch ] = useAxiosFunction();
+    const [GetLoader] = useLoading();
     const [postResponse, postError , postLoading , postAxiosFetch ] = useAxiosFunction();
+    const [PostLoader] = useLoading();
 
     const {user, accessToken } = useAuth();
 
@@ -72,7 +74,6 @@ export const Agenda = () => {
         if (getLoading === false) {
             let av = []
             if (getResponse) {
-                console.log(getResponse)
                 av = getResponse.hours.split(",")
             }
             if (availabilities !== av) {
@@ -81,27 +82,8 @@ export const Agenda = () => {
             }
         }
 
-        if (getError) {
-            console.log(getError)
-        }
-
     }, [getResponse, date, getLoading])
 
-
-    useEffect(() => {
-        if (postResponse)
-            console.log(postResponse)
-
-        if (postError)
-            console.log(postError)
-
-        console.log("hey")
-    }, [postResponse, postError])
-
-    useEffect(() => {
-        if (postLoading)
-            console.log("hey")
-    }, [postLoading])
 
     return (<>
 
@@ -140,8 +122,12 @@ export const Agenda = () => {
             </div>
 
 
+
             {/*<Event/>*/}
         </div>
+
+        <GetLoader isLoading={getLoading} />
+        <PostLoader isLoading={postLoading} />
 
     </>)
 }

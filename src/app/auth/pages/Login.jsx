@@ -70,12 +70,9 @@ export const Login = () => {
                 else
                     navigate("/patient", {replace: true})
 
-            }else if (response.role === "ADMIN" > 0) {
+            }else if (response.role === "ADMIN") {
 
-                if (from.search("office"))
-                    navigate(from, {replace: true})
-                else
-                    navigate("/office", {replace: true})
+                navigate("/office", {replace: true})
 
             }else
                 setErrMessage("Une erreur est survenue! Veuillez reessayer.")

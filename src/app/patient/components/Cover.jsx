@@ -22,7 +22,7 @@ export const Cover = ({date, data, onChangeDate}) => {
 
 
             <div className={"w-full px-4 space-y-4"}>
-                <h6 className={"text-end text-blue-400 font-semibold"}>{convert(date.format("MMMM"))} {date.format("Do YYYY")}</h6>
+                <h6 className={"text-end text-blue-400 font-semibold"}>{date.format("D")} {convert(date.format("MMMM"))} {date.format("YYYY")}</h6>
                 <h2 className={"text-center text-xl font-bold"}>{fullName ? fullName : "Prenom Nom"}</h2>
                 <p className={"text-center text-md text-gray-500"}>Fréquence rendez vous: <span className={"text-blue-500"}>bonne</span></p>
             </div>

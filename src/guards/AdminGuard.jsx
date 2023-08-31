@@ -7,7 +7,7 @@ const AdminGuard = () => {
     const auth = useAuth();
     const location = useLocation();
 
-    return (auth.user && auth.role === "DOCTOR"
+    return (auth.user && auth.role === "ADMIN"
             ? <Outlet/>
             : <Navigate to="/login" state={{from: location}} replace={true}/>
     )

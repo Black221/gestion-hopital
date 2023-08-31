@@ -9,6 +9,7 @@ import useAuth from "../../../hooks/useAuth.js";
 import moment from "moment";
 import useNotification from "../../../hooks/useNotification.jsx";
 import useLoading from "../../../hooks/useLoading.jsx";
+import DiseasesHistory from "../../share/DiseasesHistory.jsx";
 
 
 const Consultation = () => {
@@ -34,7 +35,7 @@ const Consultation = () => {
     const submitPatient = async () => {
         const data = {
             ...measure, healthCondition, doctorId : user.login, patientId: id,
-            date : today, hours : moment().format('HH:mm')
+            date : today, hours : moment().format('HH:mm'), diseasesHistory
         }
 
         await axiosFetch({
@@ -79,6 +80,7 @@ const Consultation = () => {
             submitPatient()
     }, [conResponse])
 
+
     return (<>
 
         <Breadcrumb link={["medecin", "consultation", id]} />
@@ -95,7 +97,10 @@ const Consultation = () => {
             <div className={"flex justify-around flex-wrap"}>
 
                 <div className={"lg:w-7/12 w-full"}>
+                    {/*
                     <Textarea label={"Antécédants"} className={"mt-10"} row={8} value={diseasesHistory} setValue={setDiseasesHistory} />
+                    */}
+                    <DiseasesHistory data={null} getValue={setDiseasesHistory} disabled={false} />
                     <Textarea label={"Etat général"} className={"mt-10"} row={6} value={healthCondition} setValue={setHealthCondition} />
 
                 </div>

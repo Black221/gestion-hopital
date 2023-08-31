@@ -11,7 +11,6 @@ export const DailyDisplay = ({data, getAvailabilities}) => {
 
 
     useEffect(() => {
-        console.log(data)
         setAvailabilities(data)
     }, [data])
 

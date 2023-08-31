@@ -9,8 +9,6 @@ import heart from "../../../assets/heart.jpg"
 import temp from "../../../assets/oxygene.png"
 import weight from "../../../assets/weight.svg"
 import {Calendar} from "../../share/Calendar.jsx";
-import {MESURE} from "../../dummy.js";
-import {NavLink} from "react-router-dom";
 import useAxiosFunction from "../../../hooks/useAxiosFunction.js";
 import axios from "../../../api/Axio.js";
 import useAuth from "../../../hooks/useAuth.js";

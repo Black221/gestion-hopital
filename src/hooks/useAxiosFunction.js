@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {useCountdownSeconds} from "./useCountdown.js";
 
 
 const useAxiosFunction = () => {
@@ -7,10 +8,14 @@ const useAxiosFunction = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [controller, setController] = useState(null);
+    const  [counting, seconds, start, stop, reset] = useCountdownSeconds(4);
+
 
     const axiosFetch = async (configObj) => {
 
         setLoading(true);
+        start();
+
         const ctrl = new AbortController();
         setController(ctrl);
 
@@ -40,7 +45,7 @@ const useAxiosFunction = () => {
             return () => controller.abort()
     }, [controller])
 
-    return [response, error, loading, axiosFetch];
+    return [response, error, (loading || counting), axiosFetch];
 }
 
 export default useAxiosFunction;

@@ -1,10 +1,15 @@
-
-
+import useCounter from "./useCounter.js";
 
 
 export default  function useConvertToFrench () {
 
+
+
     const englishToFrench = {
+        st: '',
+        nd: '',
+        rd: '',
+        th: '',
         January: 'Janvier',
         February: 'Février',
         March: 'Mars',
@@ -46,6 +51,11 @@ export default  function useConvertToFrench () {
     };
 
     function convertToFrench(text) {
+        const prefixMatch = text.match(/st\|nd\|rd\|th/);
+        if (prefixMatch) {
+            const prefix = prefixMatch[0];
+            return text.replace(prefix, englishToFrench[prefix]);
+        }
         return englishToFrench[text] || text;
     }
 
