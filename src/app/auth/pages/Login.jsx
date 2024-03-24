@@ -34,11 +34,7 @@ export const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
-        if (!isValid()) {
-            setErrMessage("Invalid ...")
-            setLoading(false)
-            return null;
-        }
+
         //login
         const data = {
             id: 1,
