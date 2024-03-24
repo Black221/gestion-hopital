@@ -8,6 +8,8 @@ export const DropLink = ({ label = "label", icon = null, links = [{name : "", ic
 
     const [drop, setDrop] = useState(true);
 
+    if (!links.length) return null;
+
     return (<>
         <div className={`w-full text- px-4 space-y-5`}>
             <h3 onClick={() => setDrop(!drop)} className={"font-semibold flex items-center space-x-2"}>
