@@ -1,11 +1,11 @@
-import {NavLink} from "react-router-dom";
 import {useEffect, useState} from "react";
 import useConvertToFrench from "../../hooks/useConvertToFrench.js";
 
 export const Table = ({column, data, action}) => {
 
     const [sens, setSens] = useState(false);
-    const [current, setCurrent] = useState("patientId");
+    const [current, setCurrent] = useState("");
+    const [render, setRender] = useState(data);
     const [convert] = useConvertToFrench();
 
     const sortTable = (column) => {
@@ -13,15 +13,24 @@ export const Table = ({column, data, action}) => {
         if (current === column)
             s = !s
         else s = true;
-        console.log(s, sens)
 
-        let nd = data.sort((a, b) => {
-            if (a[column] > b[column])
-                return s ? 1 : -1;
-            else
-                return s ? -1 : 1;
-        })
-        setSens(sens)
+        let nd = data
+        if (s) {
+            nd.sort((a, b) => {
+                if (a[column] < b[column]) return -1;
+                if (a[column] > b[column]) return 1;
+                return 0;
+            })
+        } else {
+            nd.sort((a, b) => {
+                if (a[column] > b[column]) return -1;
+                if (a[column] < b[column]) return 1;
+                return 0;
+            })
+        }
+
+        setRender(nd)
+        setSens(s)
         setCurrent(column)
     }
 
@@ -41,23 +50,23 @@ export const Table = ({column, data, action}) => {
                                 <button className={"uppercase"} onClick={() => sortTable(c)}>{convert(c)}</button>
                             </th>
                         ))}
-                        <th colSpan={action.ref.length} scope="col" className="px-3 py-3">
+                        <th colSpan={action.length} scope="col" className="px-3 py-3 border-l">
                             Actions
                         </th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {data ? data.map((d, index) => (
+                    {render ? render.map((d, index) => (
                         <tr key={index} className="bg-white border-b">
                             {column && column.map((c, index) => (
                                 <th key={index} scope="col" className="px-3 py-3">
                                     {d[c]}
                                 </th>
                             ))}
-                            {action && action.ref.map((a, index) => (
-                                <th key={index} scope="col" className="px-3 py-3 text-light text-blue-400 border-l underline">
-                                    <NavLink to={`/${action.position}/${a}/${d[action.id]}`}>{a}</NavLink>
+                            {action && action.map((a, index) => (
+                                <th key={index} scope="col" className="px-3 py-3 w-fit text-light text-blue-400 border-l underline">
+                                    <button onClick={() => a.onClick(d)}>{a.label}</button>
                                 </th>
                             ))}
                         </tr>

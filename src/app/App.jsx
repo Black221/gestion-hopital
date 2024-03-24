@@ -1,23 +1,13 @@
-// External importation
 import {Routes, Route} from 'react-router-dom';
-
-//Internal importation
-//import {Home} from "./home/Home.jsx";
-import {Doctor} from "./doctor/Doctor.jsx";
-import {Patient} from "./patient/Patient.jsx";
-import {Admin} from "./admin/Admin.jsx";
 import {useEffect} from "react";
 import {NotFound} from "./notFound/NotFound.jsx";
 import {Login} from "./auth/pages/Login.jsx";
-import {Register} from "./auth/pages/Register.jsx";
 import useAppState from "../hooks/useAppState.js";
 import Layout from "./Layout.jsx";
-//import useAuth from "../hooks/useAuth.js";
-import DoctorGuard from "../guards/DoctorGuard.jsx";
-import PatientGuard from "../guards/PatientGuard.jsx";
-import Redirection from "./auth/pages/Redirection.jsx";
 import {Home} from "./home/Home.jsx";
-import AdminGuard from "../guards/AdminGuard.jsx";
+import Account from "./account/Account.jsx";
+import {Dossiers} from "./dossiers/Dossiers.jsx";
+import {RendezVous} from "./rendez-vous/RendezVous.jsx";
 
 {/*
 function ScrollToTop() {
@@ -55,48 +45,14 @@ export const App = () =>  {
         <Routes>
             <Route path="/" element={ <Layout /> }>
 
-                {/*} <ScrollToTop /> */}
-
-                {/* Public routes */}
-                <Route path={`/`} exact element={ <Login /> } />
-                <Route path={`/home`} exact element={ <Home /> } />
+                <Route path={`/`} exact element={ <Home /> } />
                 <Route path={`/login`} exact element={ <Login /> } />
-                <Route path={`/register`} exact element={ <Register /> } />
-                <Route path={`/redirection`} exact element={ <Redirection /> } />
-
-                {/*
-                 Private routes
-                <Route element={ <RequiredAuth/> }>
-                    <Route path={`/home/*`} exact element={<>{
-                        auth.role === "DOCTOR"
-                            ? <Doctor />
-                            : auth.role === "PATIENT"
-                                ? <Patient />
-                                : auth.role === "ADMIN"
-                                    ? <Admin />
-                                    : <NotFound />
-                    }</>} />
-                </Route>
-                 */}
-
-                <Route element={<DoctorGuard />}>
-                    <Route path={`/medecin/*`} exact element={ <Doctor/> } />
-                </Route>
-
-                <Route element={<PatientGuard />}>
-
-                    <Route path={`/patient/*`} exact element={ <Patient /> } />
-                </Route>
-
-
-                {/* Admin routes */}
-                <Route element={<AdminGuard />}>
-                    <Route path={`/office/*`} exact element={ <Admin /> } />
-                </Route>
+                <Route path={`/comptes/*`} element={ <Account /> } />
+                <Route path={`/dossiers/*`} element={ <Dossiers /> } />
+                <Route path={`/rendez-vous/*`} element={ <RendezVous /> } />
 
                 {/*Not Found page*/}
                 <Route path={`*`} element={ <NotFound /> } />
-
             </Route>
         </Routes>
     </>)

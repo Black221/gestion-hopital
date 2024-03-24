@@ -1,14 +1,17 @@
 import {useEffect, useState} from "react";
+import useDebounce from "../../hooks/useDebounce.js";
 
 
 export const SearchBar = ({label, getSearch}) => {
 
     const [search, setSearch] = useState("");
 
-    useEffect(() => {
-        getSearch(search)
-    }, [search])
+    const debouncedSearch = useDebounce(search, 500);
 
+    useEffect(() => {
+        getSearch(debouncedSearch)
+    }, [debouncedSearch, getSearch])
+    
     return (<>
         <div className="p-2 flex items-center justify-between pb-4 bg-white ">
             <p className={`text-main font-semibold md:text-xl text-sm`}>

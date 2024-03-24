@@ -19,11 +19,11 @@ export const DailyDisplay = ({data, getAvailabilities}) => {
         <div className={`px-2 max-h-[480px] overflow-y-auto py-4`}>
             <div className={`flex justify-between`}>
                 <div className={"flex items-center space-x-4 font-semibold"}>
-                    <p>Heure</p>
-                    <h3>Tache</h3>
+                    <p>Heures</p>
+                    <h3>Consultations</h3>
 
                 </div>
-                <p className={"font-semibold"}>Disponiblité</p>
+                <p className={"font-semibold"}>Disponiblités</p>
 
             </div>
             <ol className="relative border-l border-gray-200 mt-4">
