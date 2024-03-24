@@ -1,6 +1,6 @@
-import {Input} from "../../share/Input.jsx";
+import {Input} from "./Input.jsx";
 import {useCallback, useEffect, useState} from "react";
-import {Textarea} from "../../share/Textarea.jsx";
+import {Textarea} from "./Textarea.jsx";
 
 
 export const PatientForm = ({data, getPatient}) => {

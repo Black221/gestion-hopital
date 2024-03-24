@@ -1,6 +1,0 @@
-
-
-export const History = () => {
-
-    return(<></>)
-}
