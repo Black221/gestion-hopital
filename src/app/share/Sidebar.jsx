@@ -17,7 +17,9 @@ export const Sidebar = () => {
 
                 <div className={"flex flex-col h-full overflow-y-auto"}>
 
-                    <div className={"w-2/3 mx-auto min-h-[160px] rounded bg-red-400 my-10"} />
+                    <div className={"w-2/3 mx-auto min-h-[160px] rounded bg-blue-400 my-10  flex items-center justify-center"} >
+                        <div className={"text-white text-2xl font-bold"}>Espace <br/>de travail</div>
+                    </div>
 
                     <hr className={"w-3/5 mx-auto border-1 border-black"}/>
 
