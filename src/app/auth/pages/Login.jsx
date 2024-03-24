@@ -3,6 +3,7 @@ import {useState} from "react";
 import {FaEye, FaEyeSlash} from "react-icons/fa6";
 import {useNavigate} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth.js";
+import {Select} from "../../share/Select.jsx";
 
 
 export const Login = () => {
@@ -15,6 +16,7 @@ export const Login = () => {
     const [password, setPassword] = useState("");
     const [errMessage, setErrMessage] = useState("");
     const [viewPassword, setViewPassword] = useState(false);
+    const [role, setRole] = useState("Admin");
 
     const [loading, setLoading] = useState(false);
 
@@ -41,7 +43,7 @@ export const Login = () => {
         const data = {
             id: 1,
             login,
-            role: "ADMIN",
+            role,
             token: "123456789",
         }
         auth.login(data)
@@ -55,8 +57,11 @@ export const Login = () => {
             <form className={`bottom-20 relative space-y-8`} onSubmit={handleSubmit}>
                 <div className={`md:text-3xl text-2xl text-main text-center`}>
                     <div>Espace de travail</div>
+                    <div className={"text-sm my-4 text-red-500"}>
+                        Ceci est une application test choisisez votre role et connectez-vous
+                    </div>
                 </div>
-                <div className={`space-y-2 md:w-96 w-80`}>
+                <div className={`space-y-2 md:w-96 w-80 mx-auto`}>
                     <div className={"text-sm text-red-400 text-center"}>{errMessage}</div>
 
                     <InputForm className={""}
@@ -72,6 +77,10 @@ export const Login = () => {
                                getValue={setPassword}
                                regex={PASSWORD_REGEX}
                                required={true} />
+
+                    <Select label={"Role"} options={[
+                        "Admin", "Medecin", "Assistant"
+                    ]} value={role} setValue={setRole} />
 
                     <div className={"space-x-2 flex items-center justify-end"}>
                         <button className={""} type={"button"} onClick={() => setViewPassword(!viewPassword)}>

@@ -8,6 +8,7 @@ import {Home} from "./home/Home.jsx";
 import Account from "./account/Account.jsx";
 import {Dossiers} from "./dossiers/Dossiers.jsx";
 import {RendezVous} from "./rendez-vous/RendezVous.jsx";
+import RequiredAuth from "../guards/RequiredAuth.jsx";
 
 {/*
 function ScrollToTop() {
@@ -43,13 +44,17 @@ export const App = () =>  {
 
     return (<>
         <Routes>
+            <Route path={`/login`} exact element={ <Login /> } />
+
             <Route path="/" element={ <Layout /> }>
 
                 <Route path={`/`} exact element={ <Home /> } />
-                <Route path={`/login`} exact element={ <Login /> } />
-                <Route path={`/comptes/*`} element={ <Account /> } />
-                <Route path={`/dossiers/*`} element={ <Dossiers /> } />
-                <Route path={`/rendez-vous/*`} element={ <RendezVous /> } />
+                <Route element={ <RequiredAuth />} >
+                    <Route path={`/comptes/*`} element={ <Account /> } />
+                    <Route path={`/dossiers/*`} element={ <Dossiers /> } />
+                    <Route path={`/rendez-vous/*`} element={ <RendezVous /> } />
+                </Route>
+
 
                 {/*Not Found page*/}
                 <Route path={`*`} element={ <NotFound /> } />

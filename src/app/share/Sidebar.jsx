@@ -4,8 +4,11 @@
 
 
 import {DropLink} from "./DropLink.jsx";
+import useAuth from "../../hooks/useAuth.js";
 
 export const Sidebar = () => {
+
+    const auth = useAuth();
 
     return (<>
 
@@ -20,22 +23,26 @@ export const Sidebar = () => {
 
                     <div className={`w-full  text-start space-y-4 flex-1 py-8 `}>
 
-                        <DropLink label={"Gestion des comptes"} links={[
+                        <DropLink label={"Gestion des comptes"} links={auth && auth.role === "Admin" ? [
                             {to: "comptes/recherche", name: "Rechercher", icon: <SearchIcon/>},
                             {to: "comptes/ajout-medecin", name: "Créer compte médecin", icon: AccountIcon()},
+                        ] : (auth && auth.role === "Medecin" ? [
+                            {to: "comptes/recherche", name: "Rechercher", icon: <SearchIcon/>},
                             {to: "comptes/ajout-assistant", name: "Créer compte assistant", icon: AccountIcon()},
-                        ]} />
+                        ] : [])} />
 
-                        <DropLink label={"Gestion des dossiers"} links={[
+                        <DropLink label={"Gestion des dossiers"} links={ auth && auth.role !== "Admin" ? [
                             {to: "dossiers/ajout", name: "Créer un dossier", icon: PatientIcon()},
                             {to: "dossiers/recherche", name: "Rechercher dossier", icon: SearchIcon()},
                             {to: "dossiers/fichier-medical", name: "Enregister fichier médical", icon: ScannerIcon()},
-                        ]} />
+                        ] : []} />
 
-                        <DropLink label={"Gestion rendez-vous"} links={[
+                        <DropLink label={"Gestion rendez-vous"} links={ auth && auth.role === "Medecin" ? [
                             {to: "rendez-vous/planning", name: "Gérer planning", icon: CalendarIcon()},
                             {to: "rendez-vous/ajout", name: "Ajouter rendez-vous", icon: CalendarAddIcon()},
-                        ]} />
+                        ] : auth && auth.role === "Assistant" ? [
+                            {to: "rendez-vous/ajout", name: "Ajouter rendez-vous", icon: CalendarAddIcon()}
+                        ] : []} />
                     </div>
 
                     {/* <div className={`w-full text-xl px-4 pb-4 flex justify-between items-center`}>
