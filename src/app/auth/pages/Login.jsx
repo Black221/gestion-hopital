@@ -69,14 +69,14 @@ export const Login = () => {
                                type={"text"}
                                getValue={setLogin}
                                regex={LOGIN_REGEX}
-                               required={true} />
+                               required={false} />
 
                     <InputForm className={""}
                                label={"password"}
                                type={viewPassword ? "text" : "password"}
                                getValue={setPassword}
                                regex={PASSWORD_REGEX}
-                               required={true} />
+                               required={false} />
 
                     <Select label={"Role"} options={[
                         "Admin", "Medecin", "Assistant"
@@ -89,8 +89,8 @@ export const Login = () => {
                     </div>
                 </div>
                 {!loading ? <div className={"text-center"}>
-                    <button type={"submit"} disabled={!isValid()}
-                            className={`px-6 py-1 rounded ${isValid() ? "bg-green-500" : "bg-gray-400"} text-xl font-semibold text-white`}
+                    <button type={"submit"}
+                            className={`px-6 py-1 rounded ${"bg-green-500"} text-xl font-semibold text-white`}
 
                     >Login
                     </button>
