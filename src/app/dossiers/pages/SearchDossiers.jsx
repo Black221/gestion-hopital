@@ -3,9 +3,11 @@ import {SearchBar} from "../../share/SearchBar.jsx";
 import {Table} from "../../share/Table.jsx";
 import {Pagination} from "../../share/Pagination.jsx";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 export const SearchDossiers = () => {
 
+    const navigate = useNavigate();
     const DATA = [
         {id: '1', nom: 'John Doe', prenom: 'Jane', cni: '12345678', dateNaissance: '12/12/2020', sexe: 'M'},
         {id: '2', nom: 'Jane Doe', prenom: 'Jane', cni: '12345678', dateNaissance: '12/12/2020', sexe: 'F'},
@@ -18,9 +20,9 @@ export const SearchDossiers = () => {
         'id', 'nom','prenom', 'cni', 'dateNaissance', 'sexe'
     ];
     const ACTIONS = [
-        {icon: 'edit', label: 'Completer', onClick: (row) => console.log('Modifier', row)},
-        {icon: 'delete', label: 'Consulter', onClick: (row) => console.log('Archiver', row)},
-        {icon: 'delete', label: 'Ordonnance', onClick: (row) => console.log('Archiver', row)}
+        {icon: 'edit', label: 'Completer', onClick: (row) => navigate(`/dossiers/completer/${row.id}`)},
+        {icon: 'delete', label: 'Consulter', onClick: (row) => navigate(`/dossiers/consulter/${row.id}`)},
+        {icon: 'delete', label: 'Ordonnance', onClick: (row) => navigate(`/dossiers/ordonnance/${row.id}`)},
     ];
 
     const [page, setPage] = useState(0);
